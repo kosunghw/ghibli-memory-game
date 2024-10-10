@@ -2,7 +2,24 @@ import { motion } from 'framer-motion';
 import logo from '../assets/img/ghibli-logo.png';
 import Card from './Card';
 
-export default function Game({ handleLogoClick, gameLevel, characters }) {
+export default function Game({
+  handleLogoClick,
+  gameLevel,
+  characters,
+  shuffle,
+}) {
+  let characterSelected;
+
+  shuffle(characters);
+
+  if (gameLevel.difficulty === 'easy') {
+    characterSelected = characters.slice(0, 5);
+  } else if (gameLevel.difficulty === 'medium') {
+    characterSelected = characters.slice(0, 7);
+  } else if (gameLevel.difficulty === 'hard') {
+    characterSelected = characters.slice(0, 10);
+  }
+
   return (
     <>
       <div className='flex flex-col relative items-center min-h-screen min-w-full'>
@@ -17,7 +34,7 @@ export default function Game({ handleLogoClick, gameLevel, characters }) {
           alt='logo image'
         />
         <div className='flex flex-wrap justify-center absolute top-52 w-3/4 overflow-hidden gap-3'>
-          {characters.map((character) => {
+          {characterSelected.map((character) => {
             return <Card character={character} />;
           })}
         </div>
