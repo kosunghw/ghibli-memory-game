@@ -10,12 +10,22 @@ import Game from './components/Game'
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [gameLevel, setGameLevel] = useState(null);
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+  const [playingCharacters, setPlayingCharacters] = useState([]);
 
   useEffect(()=> {
     setTimeout(() => {
       setLoaded(true);
     }, 3000);
   }, []);
+
+  useEffect(()=>{
+    if (gameLevel) {
+      shuffle(characters);
+      setPlayingCharacters(characters.slice(0, gameLevel.cardNum));
+    }
+  }, [gameLevel])
 
   function shuffle(array) {
     let currentIndex = array.length;
@@ -35,6 +45,24 @@ function App() {
 
   function handleLogoClick() {
     setGameLevel(null);
+    setScore(0);
+    playingCharacters.forEach((character) => {
+      character.clicked = false;
+    })
+    setPlayingCharacters([]);
+  }
+
+  function handleCardClick(character) {
+    if (character.clicked) {
+      alert('game over');
+      handleLogoClick();
+    }
+    else {
+      character.clicked = true;
+      const temp = [...playingCharacters] // Shallow copying playingCharacters
+      shuffle(temp);
+      setPlayingCharacters(temp);
+    }
   }
 
   return (
@@ -53,7 +81,7 @@ function App() {
           <>
             {!gameLevel
               ? <StartScreen setGameLevel={setGameLevel} />
-              : <Game handleLogoClick={handleLogoClick} gameLevel={gameLevel} characters={characters} shuffle={shuffle}/>}
+              : <Game handleLogoClick={handleLogoClick} gameLevel={gameLevel} playingCharacters={playingCharacters} handleCardClick={handleCardClick} shuffle={shuffle}/>}
           </>
         )}
       

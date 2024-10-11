@@ -1,24 +1,26 @@
 import { motion } from 'framer-motion';
 import logo from '../assets/img/ghibli-logo.png';
 import Card from './Card';
+import {useEffect} from 'react';
 
 export default function Game({
   handleLogoClick,
   gameLevel,
-  characters,
+  playingCharacters,
+  handleCardClick,
   shuffle,
 }) {
-  let characterSelected;
+  // let characterSelected;
 
-  shuffle(characters);
+  // shuffle(characters);
 
-  if (gameLevel.difficulty === 'easy') {
-    characterSelected = characters.slice(0, 5);
-  } else if (gameLevel.difficulty === 'medium') {
-    characterSelected = characters.slice(0, 7);
-  } else if (gameLevel.difficulty === 'hard') {
-    characterSelected = characters.slice(0, 10);
-  }
+  // if (gameLevel.difficulty === 'easy') {
+  //   characterSelected = characters.slice(0, 5);
+  // } else if (gameLevel.difficulty === 'medium') {
+  //   characterSelected = characters.slice(0, 7);
+  // } else if (gameLevel.difficulty === 'hard') {
+  //   characterSelected = characters.slice(0, 10);
+  // }
 
   return (
     <>
@@ -34,8 +36,8 @@ export default function Game({
           alt='logo image'
         />
         <div className='flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5'>
-          {characterSelected.map((character) => {
-            return <Card character={character} />;
+          {playingCharacters.map((character) => {
+            return <Card character={character} handleCardClick={handleCardClick} />;
           })}
         </div>
       </div>
