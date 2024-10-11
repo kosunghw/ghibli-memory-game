@@ -22,7 +22,7 @@ export default function Game({
 
   return (
     <>
-      <div className='flex flex-col relative items-center min-h-screen min-w-full'>
+      <div className='flex flex-col relative items-center justify-center min-h-screen min-w-full'>
         <motion.img
           onClick={handleLogoClick}
           whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
@@ -33,7 +33,7 @@ export default function Game({
           src={logo}
           alt='logo image'
         />
-        <div className='flex flex-wrap justify-center absolute top-52 w-3/4 overflow-hidden gap-3'>
+        <div className='flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5'>
           {characterSelected.map((character) => {
             return <Card character={character} />;
           })}
