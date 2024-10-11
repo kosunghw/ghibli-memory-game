@@ -1,30 +1,29 @@
 import { motion } from 'framer-motion';
 import logo from '../assets/img/ghibli-logo.png';
 import Card from './Card';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 export default function Game({
   handleLogoClick,
-  gameLevel,
   playingCharacters,
   handleCardClick,
-  shuffle,
+  score,
+  bestScore,
+  setBestScore,
+  gameLevel,
 }) {
-  // let characterSelected;
-
-  // shuffle(characters);
-
-  // if (gameLevel.difficulty === 'easy') {
-  //   characterSelected = characters.slice(0, 5);
-  // } else if (gameLevel.difficulty === 'medium') {
-  //   characterSelected = characters.slice(0, 7);
-  // } else if (gameLevel.difficulty === 'hard') {
-  //   characterSelected = characters.slice(0, 10);
-  // }
+  useEffect(() => {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+    if (score === gameLevel.cardNum) {
+      alert('you win!');
+    }
+  }, [score]);
 
   return (
     <>
-      <div className='flex flex-col relative items-center justify-center min-h-screen min-w-full'>
+      <div className='flex flex-col relative items-center min-h-screen min-w-full'>
         <motion.img
           onClick={handleLogoClick}
           whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
@@ -35,9 +34,20 @@ export default function Game({
           src={logo}
           alt='logo image'
         />
+        <div className='flex gap-5 absolute top-36 text-lg'>
+          <div>Score: {score}</div>
+          <div>Best Score: {bestScore}</div>
+        </div>
+        {score < gameLevel.cardNum && (
+          <div className='absolute top-48 text-lg'>
+            {score} / {gameLevel.cardNum}
+          </div>
+        )}
         <div className='flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5'>
           {playingCharacters.map((character) => {
-            return <Card character={character} handleCardClick={handleCardClick} />;
+            return (
+              <Card character={character} handleCardClick={handleCardClick} />
+            );
           })}
         </div>
       </div>
