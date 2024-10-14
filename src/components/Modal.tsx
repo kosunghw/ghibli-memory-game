@@ -17,7 +17,7 @@ function Modal({ gameStatus, handleLogoClick, handlePlayAgain }) {
         className={containerClass}
       >
         <div className='text-3xl'>
-          {gameStatus === 'win' ? <>You Win!</> : <>You Lose..</>}
+          {gameStatus === 'win' ? <>You Win!</> : <>You Lose...</>}
         </div>
         <img src={gameStatus === 'win' ? win : lose} className='w-52' />
         <div className='flex gap-5'>

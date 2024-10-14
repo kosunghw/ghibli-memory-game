@@ -6,6 +6,7 @@ import LoadScreen from './components/LoadScreen';
 import StartScreen from './components/StartScreen';
 import characters from './components/characters';
 import Game from './components/Game';
+import BGM from './components/BGM';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -114,27 +115,8 @@ function App() {
           )}
         </>
       )}
+      <BGM />
     </>
-    // {!loaded
-    //   ? <LoadScreen />
-    //   : (
-    //     <>
-    //       {!gameLevel[0]
-    //         ? <StartScreen handleClick={handleClick} />
-    //         : <Game handleLogoClick={handleLogoClick} gameLevel={gameLevel} characters={characters} shuffle={shuffle}>}
-    //     </>
-    //   )}
-    /* <div className='relative flex items-center justify-center h-screen overflow-hidden'>
-        <video
-          className='absolute -z-50 w-auto min-w-full min-h-full max-w-none'
-          autoPlay
-          loop
-          muted
-        >
-          <source src={video} type='video/mp4'></source>
-        </video>
-        <img className='absolute w-80 top-8 left-8' src={logo} alt='logo image' />
-      </div> */
   );
 }
 

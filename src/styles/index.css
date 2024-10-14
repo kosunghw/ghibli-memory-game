@@ -4,8 +4,7 @@
 
 @font-face {
   font-family: 'futura-book';
-  src: 
-    url('../assets/fonts/futura_book_font-webfont.woff') format('woff'),
+  src: url('../assets/fonts/futura_book_font-webfont.woff') format('woff'),
     url('../assets/fonts/futura_book_font-webfont.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
@@ -13,8 +12,7 @@
 
 @font-face {
   font-family: 'futura-medium';
-  src:
-    url(../assets/fonts/futura_medium_bt-webfont.woff) format('woff'),
+  src: url(../assets/fonts/futura_medium_bt-webfont.woff) format('woff'),
     url(../assets/fonts/futura_medium_bt-webfont.woff2) format('woff2');
   font-weight: normal;
   font-style: normal;
