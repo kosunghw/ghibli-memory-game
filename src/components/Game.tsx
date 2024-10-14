@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import logo from '../assets/img/ghibli-logo.png';
 import Card from './Card';
+import Modal from './Modal';
 import { useEffect } from 'react';
 
 export default function Game({
@@ -11,19 +12,22 @@ export default function Game({
   bestScore,
   setBestScore,
   gameLevel,
+  gameStatus,
+  setGameStatus,
+  handlePlayAgain,
 }) {
   useEffect(() => {
     if (score > bestScore) {
       setBestScore(score);
     }
     if (score === gameLevel.cardNum) {
-      alert('you win!');
+      setGameStatus('win');
     }
   }, [score]);
 
   return (
     <>
-      <div className='flex flex-col relative items-center min-h-screen min-w-full'>
+      <div className='flex flex-col relative items-center justify-center min-h-screen min-w-full'>
         <motion.img
           onClick={handleLogoClick}
           whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
@@ -43,13 +47,26 @@ export default function Game({
             {score} / {gameLevel.cardNum}
           </div>
         )}
-        <div className='flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5'>
+        <div
+          className={
+            gameStatus === ''
+              ? 'flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5'
+              : 'flex flex-wrap justify-center absolute top-60 w-3/4 overflow-hidden gap-5 brightness-50'
+          }
+        >
           {playingCharacters.map((character) => {
             return (
               <Card character={character} handleCardClick={handleCardClick} />
             );
           })}
         </div>
+        {gameStatus !== '' && (
+          <Modal
+            gameStatus={gameStatus}
+            handleLogoClick={handleLogoClick}
+            handlePlayAgain={handlePlayAgain}
+          />
+        )}
       </div>
     </>
   );

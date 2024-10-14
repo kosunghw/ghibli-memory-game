@@ -13,6 +13,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [playingCharacters, setPlayingCharacters] = useState([]);
+  const [gameStatus, setGameStatus] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -51,12 +52,12 @@ function App() {
       character.clicked = false;
     });
     setPlayingCharacters([]);
+    setGameStatus('');
   }
 
   function handleCardClick(character) {
     if (character.clicked) {
-      alert('game over');
-      handleLogoClick();
+      setGameStatus('lose');
     } else {
       character.clicked = true;
       const temp = [...playingCharacters]; // Shallow copying playingCharacters
@@ -66,9 +67,29 @@ function App() {
     }
   }
 
+  function handlePlayAgain() {
+    setScore(0);
+    playingCharacters.forEach((character) => {
+      character.clicked = false;
+    });
+    setPlayingCharacters([]);
+    setGameStatus('');
+    shuffle(characters);
+    setPlayingCharacters(characters.slice(0, gameLevel.cardNum));
+  }
+
   return (
     <>
-      <video className='fixed -z-10 min-w-full min-h-full' autoPlay loop muted>
+      <video
+        className={
+          gameStatus !== ''
+            ? 'fixed -z-10 min-w-full min-h-full brightness-50'
+            : 'fixed -z-10 min-w-full min-h-full'
+        }
+        autoPlay
+        loop
+        muted
+      >
         <source src={video} type='video/mp4'></source>
       </video>
       {!loaded ? (
@@ -86,6 +107,9 @@ function App() {
               bestScore={bestScore}
               gameLevel={gameLevel}
               setBestScore={setBestScore}
+              gameStatus={gameStatus}
+              setGameStatus={setGameStatus}
+              handlePlayAgain={handlePlayAgain}
             />
           )}
         </>
