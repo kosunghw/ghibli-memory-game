@@ -1,5 +1,4 @@
 import video from './assets/videos/background-video.mp4';
-import logo from './assets/img/ghibli-logo.png';
 import './styles/index.css';
 import { useState, useEffect } from 'react';
 import LoadScreen from './components/LoadScreen';
